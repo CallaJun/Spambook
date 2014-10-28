@@ -4,8 +4,8 @@ import logging
 import os
 import webapp2
 import json
-#import fb
-#from facepy import GraphAPI
+import fb
+from facepy import GraphAPI
 
 jinja_environment = jinja2.Environment(loader=
     jinja2.FileSystemLoader(os.path.dirname(__file__)))
