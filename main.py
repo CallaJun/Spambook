@@ -4,8 +4,8 @@ import logging
 import os
 import webapp2
 import json
-import fb                     #To install this package run: sudo pip install fb
-from facepy import GraphAPI
+#import fb
+#from facepy import GraphAPI
 
 jinja_environment = jinja2.Environment(loader=
     jinja2.FileSystemLoader(os.path.dirname(__file__)))
@@ -20,6 +20,7 @@ class HomeHandler(webapp2.RequestHandler):
 class MeasureHandler(webapp2.RequestHandler):
     def get(self):  
         template_values = {
+        
         }
         final = self.request.get('input')
 
