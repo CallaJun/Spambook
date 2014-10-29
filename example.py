@@ -31,11 +31,12 @@ import wsgiref.handlers
 
 import fb
 from facepy import GraphAPI
-
+from webapp2_extras import sessions
+from webapp2_extras import auth
 from google.appengine.ext import db
-from google.appengine.ext import webapp2
-from google.appengine.ext.webapp2 import util
-from google.appengine.ext.webapp2 import template
+from google.appengine.ext import webapp
+from google.appengine.ext.webapp import util
+from google.appengine.ext.webapp import template
 
 
 class User(db.Model):
@@ -88,10 +89,12 @@ class HomeHandler(BaseHandler):
                     facebook_app_id=FACEBOOK_APP_ID)
         self.response.out.write(template.render(path, args))
 
-
+'''
 def main():
     util.run_wsgi_app(webapp2.WSGIApplication([(r"/", HomeHandler)]))
-
+'''
+routes = [('/', HomeHandler)]
+app = webapp2.WSGIApplication(routes, debug=True) 
 
 if __name__ == "__main__":
     main()
