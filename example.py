@@ -25,15 +25,17 @@ FACEBOOK_APP_SECRET = "bf274f5df71bd6eb29fbadfb255310bb"
 
 import facebook
 import os.path
+import webapp2
+import jinja2
 import wsgiref.handlers
 
 import fb
 from facepy import GraphAPI
 
 from google.appengine.ext import db
-from google.appengine.ext import webapp
-from google.appengine.ext.webapp import util
-from google.appengine.ext.webapp import template
+from google.appengine.ext import webapp2
+from google.appengine.ext.webapp2 import util
+from google.appengine.ext.webapp2 import template
 
 
 class User(db.Model):
@@ -45,7 +47,7 @@ class User(db.Model):
     access_token = db.StringProperty(required=True)
 
 
-class BaseHandler(webapp.RequestHandler):
+class BaseHandler(webapp2.RequestHandler):
     """Provides access to the active Facebook user in self.current_user
 
     The property is lazy-loaded on first access, using the cookie saved
@@ -88,7 +90,7 @@ class HomeHandler(BaseHandler):
 
 
 def main():
-    util.run_wsgi_app(webapp.WSGIApplication([(r"/", HomeHandler)]))
+    util.run_wsgi_app(webapp2.WSGIApplication([(r"/", HomeHandler)]))
 
 
 if __name__ == "__main__":
