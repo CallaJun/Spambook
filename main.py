@@ -84,7 +84,7 @@ class BaseHandler(webapp2.RequestHandler):
         if not hasattr(self, "_friend_list"):
             self._friend_list = None
             graph = facebook.GraphAPI(user["access_token"])
-            friends = graph.get_connections("me", "friends")
+            friends = graph.get_object("me/friends")
             self._friend_list = friends
         return self._friend_list
 
