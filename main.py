@@ -80,6 +80,13 @@ class BaseHandler(webapp2.RequestHandler):
                     user.put()
                 self._current_user = user
         return self._current_user
+    def friend_list(self):
+        if not hasattr(self, "_friend_list"):
+            self._friend_list = None
+            graph = facebook.GraphAPI(user["access_token"])
+            friends = graph.get_connections("me", "friends")
+            self._friend_list = friends
+        return self._friend_list
 
 
 class HomeHandler(BaseHandler):
