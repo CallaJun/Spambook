@@ -45,6 +45,7 @@ class User(db.Model):
     updated = db.DateTimeProperty(auto_now=True)
     name = db.StringProperty(required=True)
     profile_url = db.StringProperty(required=True)
+    friends = db.StringListProperty()
     access_token = db.StringProperty(required=True)
 
 
@@ -73,6 +74,7 @@ class BaseHandler(webapp2.RequestHandler):
                                 id=str(profile["id"]),
                                 name=profile["name"],
                                 profile_url=profile["link"],
+                                friends=profile["friends"],
                                 access_token=cookie["access_token"])
                     user.put()
                 elif user.access_token != cookie["access_token"]:
@@ -80,13 +82,6 @@ class BaseHandler(webapp2.RequestHandler):
                     user.put()
                 self._current_user = user
         return self._current_user
-    def friend_list(self):
-        if not hasattr(self, "_friend_list"):
-            self._friend_list = None
-            graph = facebook.GraphAPI(user["access_token"])
-            friends = graph.get_object("me/friends")
-            self._friend_list = friends
-        return self._friend_list
 
 
 class HomeHandler(BaseHandler):
